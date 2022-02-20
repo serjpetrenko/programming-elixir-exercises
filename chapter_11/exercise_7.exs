@@ -1,16 +1,17 @@
 defmodule OrdersWithRates do
-  def calculate(tax_rates, orders) do
+  @tax_rates [NC: 0.075, TX: 0.08]
+  def calculate(orders) do
     for order <- orders,
         do:
           Keyword.put(
             order,
             :total_amount,
-            total_amount(order, tax_rates)
+            total_amount(order)
           )
   end
 
-  defp total_amount(order, tax_rates) do
-    order[:net_amount] + Keyword.get(tax_rates, Keyword.get(order, :ship_to), 0)
+  defp total_amount(order) do
+    order[:net_amount] + Keyword.get(@tax_rates, Keyword.get(order, :ship_to), 0)
   end
 end
 
@@ -31,6 +32,4 @@ defmodule ParseCsv do
   end
 end
 
-tax_rates = [NC: 0.075, TX: 0.08]
-
-IO.inspect(OrdersWithRates.calculate(tax_rates, ParseCsv.parse()))
+IO.inspect(OrdersWithRates.calculate(ParseCsv.parse()))
