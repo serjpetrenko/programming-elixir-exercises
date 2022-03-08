@@ -1,6 +1,8 @@
 defmodule Issues.CLI do
   @default_count 4
 
+  import Issues.TableFormatter, only: [ print_table_for_columns: 2 ]
+
   @moduledoc """
   Handling the command line parsing and the dispatch
   to the various functions that end up a generating a table
@@ -41,14 +43,23 @@ defmodule Issues.CLI do
     System.halt(0)
   end
 
-  def process({user, project, _count}) do
+  def process({user, project, count}) do
     Issues.GithubIssues.fetch(user, project)
     |> decode_response()
+    |> sort_desc()
+    |> Enum.take(count)
+    |> print_table_for_columns(["number", "created_at", "title"])
   end
 
   def decode_response({:ok, body}), do: body
+
   def decode_response({:error, error}) do
     IO.puts("Error fetching from Github: #{error["message"]}")
     System.halt(2)
+  end
+
+  def sort_desc(list) do
+    list
+    |> Enum.sort(fn el1, el2 -> el1["created_at"] >= el2["created_at"] end)
   end
 end
