@@ -15,9 +15,8 @@ defmodule Weather.CLI do
 
   @doc """
   `argv` can be -h or --help, which returns :help.
-  Otherwise it's a github user name, project name and (optionally)
-  number of entries to format.
-  Return a tuple of `{user, project, count}`, or `:help` if help was given.
+  Otherwise it's a airport name.
+  Return a upcase name `airport_name`, or `:help` if help was given.
   """
   def parse_args(argv) do
     OptionParser.parse(argv, switches: [help: :boolean], aliases: [h: :help])
