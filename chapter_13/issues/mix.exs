@@ -10,7 +10,14 @@ defmodule Issues.MixProject do
       start_permanent: Mix.env() == :prod,
       deps: deps(),
       source_url:
-        "https://github.com/serjpetrenko/programming-elixir-exercises/tree/master/chapter_13/issues"
+        "https://github.com/serjpetrenko/programming-elixir-exercises/tree/master/chapter_13/issues",
+      test_coverage: [tool: ExCoveralls],
+      preferred_cli_env: [
+        coveralls: :test,
+        "coveralls.detail": :test,
+        "coveralls.post": :test,
+        "coveralls.html": :test
+      ]
     ]
   end
 
@@ -27,7 +34,8 @@ defmodule Issues.MixProject do
       {:httpoison, "~> 1.8"},
       {:poison, "~> 5.0"},
       {:ex_doc, "~> 0.28.2"},
-      {:earmark, "~> 1.4"}
+      {:earmark, "~> 1.4"},
+      {:excoveralls, "~> 0.14.4"}
     ]
   end
 

@@ -27,12 +27,11 @@ defmodule Issues.CLI do
     |> args_to_represantation()
   end
 
-  def args_to_represantation(help: true), do: :help
-
   def args_to_represantation([user, project, count]),
     do: {user, project, String.to_integer(count)}
 
   def args_to_represantation([user, project]), do: {user, project, @default_count}
+
   def args_to_represantation(_), do: :help
 
   def process(:help) do
