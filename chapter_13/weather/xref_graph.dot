@@ -1,0 +1,6 @@
+digraph "xref graph" {
+  "lib/weather.ex"
+  "lib/weather/airport_weather.ex"
+  "lib/weather/cli.ex"
+  "lib/weather/cli.ex" -> "lib/weather/airport_weather.ex"
+}
