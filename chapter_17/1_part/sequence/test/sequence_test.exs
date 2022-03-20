@@ -1,0 +1,2 @@
+defmodule SequenceTest do
+end
