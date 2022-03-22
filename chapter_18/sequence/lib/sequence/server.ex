@@ -22,7 +22,7 @@ defmodule Sequence.Server do
     GenServer.call(@me, :next_number)
   end
 
-  def update_number(new_number) do
+  def update_number(new_number) when is_integer(new_number) do
     GenServer.cast(@me, {:update, new_number})
   end
 

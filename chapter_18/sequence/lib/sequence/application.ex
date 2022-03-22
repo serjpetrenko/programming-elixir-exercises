@@ -8,7 +8,7 @@ defmodule Sequence.Application do
   @impl true
   def start(_type, _args) do
     children = [
-      {Sequence.Stash, 123},
+      {Sequence.Stash, 100},
       {Sequence.Server, nil}
     ]
 
