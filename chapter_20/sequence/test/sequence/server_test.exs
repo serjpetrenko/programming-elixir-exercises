@@ -1,7 +1,7 @@
 defmodule ServerTest do
   use ExUnit.Case
 
-  alias Sequence.Server
+  alias Sequence.{Server, Stash}
 
   import :timer, only: [ sleep: 1 ]
 
@@ -33,9 +33,8 @@ defmodule ServerTest do
   test "terminate returns last value before terminating" do
     assert Server.next_number == 1
 
-    Server.increment_number("cat")
+    assert :ok = GenServer.stop(Server)
 
-    sleep(500)
-    assert Server.current_number == 2
+    assert Stash.get() == 2
   end
 end
